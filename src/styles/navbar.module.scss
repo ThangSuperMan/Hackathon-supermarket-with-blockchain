@@ -1,0 +1,21 @@
+.navbar {
+  padding-inline: 64px;
+  height: 72px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar_items {
+  display: flex;
+}
+
+.navbar_item__icon {
+  cursor: pointer;
+  padding-inline: 16px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
