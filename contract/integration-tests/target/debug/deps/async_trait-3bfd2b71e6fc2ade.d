@@ -1,0 +1,11 @@
+/Users/thangphan/Developments/supermarket/contract/integration-tests/target/debug/deps/libasync_trait-3bfd2b71e6fc2ade.dylib: /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/lib.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/args.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/bound.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/expand.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/lifetime.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/parse.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/receiver.rs
+
+/Users/thangphan/Developments/supermarket/contract/integration-tests/target/debug/deps/async_trait-3bfd2b71e6fc2ade.d: /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/lib.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/args.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/bound.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/expand.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/lifetime.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/parse.rs /Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/receiver.rs
+
+/Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/lib.rs:
+/Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/args.rs:
+/Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/bound.rs:
+/Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/expand.rs:
+/Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/lifetime.rs:
+/Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/parse.rs:
+/Users/thangphan/.cargo/registry/src/github.com-1ecc6299db9ec823/async-trait-0.1.63/src/receiver.rs:

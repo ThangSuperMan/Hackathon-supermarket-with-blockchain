@@ -41,9 +41,11 @@ const Web3Provider = ({ children }: Props) => {
         contractId: CONTRACT_ID,
         walletToUse: wallet,
       });
+
       const isSignedIn = await wallet.startUp();
       setWeb3({ wallet, contract, isSignedIn });
     }
+
     loadProviders();
   }, []);
 

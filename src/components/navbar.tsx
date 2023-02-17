@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import Link from "next/link";
+import { useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { BsCart } from "react-icons/bs";
-import { IoWalletOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import Link from "next/link";
-import Logo from "./logo";
+import { IoWalletOutline } from "react-icons/io5";
 import { Web3Context } from "../context/web3-provider";
+import Logo from "./logo";
 
 const Navbar = () => {
+  const CONTRACT_ADDRESS: string = "dev-1675867092617-39932226292718";
+  const [couter, setCouter] = useState<any>(0);
+
   const web3 = useContext(Web3Context);
   const [isShowDropDown, setIsShowdropdown] = useState<boolean>(false);
 
@@ -24,7 +27,37 @@ const Navbar = () => {
     setIsShowdropdown((prev) => !prev);
   }
 
-  console.log("rendering the Navbar Provider component");
+  function getNum() {
+    let num = web3.wallet?.viewMethod({
+      method: "get_num",
+      contractId: CONTRACT_ADDRESS,
+    });
+    return num;
+  }
+
+  async function getCouter() {
+    console.log("getCouter");
+    console.log("contract address :>> ", CONTRACT_ADDRESS);
+    let num;
+    num = await web3.wallet?.viewMethod({
+      method: "get_num",
+      contractId: CONTRACT_ADDRESS,
+    });
+
+    setCouter(num);
+
+    console.log("Result from contract :>> ", num);
+  }
+
+  async function handleIncrement() {
+    console.log("handleIncrement");
+    await web3.wallet?.callMethod({
+      contractId: CONTRACT_ADDRESS,
+      method: "increment",
+    });
+    // @ts-ignore
+    setCouter(getNum);
+  }
 
   return (
     <div className="bg-white h-[72px] flex items-center justify-between border-b-[1px] border-gray-200 px-16">
@@ -34,9 +67,24 @@ const Navbar = () => {
       <div className="flex">
         <div className="relative h-[72px] flex items-center justify-between px-4">
           {web3.isSignedIn ? (
-            <h3 className="text-bold mr-4 bg-primary-color hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              {getCleanAccountIdFromWallet()}
-            </h3>
+            <>
+              <h3 className="px-4 py-2 mr-4 font-bold text-white rounded shadow-md text-bold bg-primary-color hover:bg-blue-700">
+                {getCleanAccountIdFromWallet()}
+              </h3>
+              <button
+                onClick={handleIncrement}
+                className="px-4 py-2 mt-4 font-bold bg-yellow-200 rounded hover:bg-yellow-600"
+              >
+                Increment num
+              </button>
+              <button
+                onClick={getCouter}
+                className="px-4 py-2 mt-4 ml-2 font-bold bg-yellow-200 rounded hover:bg-yellow-600"
+              >
+                Get num
+              </button>
+              <p>Result from get_num function: {couter}</p>
+            </>
           ) : undefined}
           <div onClick={handleShowDropDown} className="cursor-pointer">
             <IoWalletOutline size={32} />
@@ -70,7 +118,7 @@ const DropdownWalletsContent = () => {
       <div className="absolute z-10 w-[378px] h-[calc(100vh-72px)] top-[72px] right-0 bg-white">
         <div className="flex items-center p-5 border-b-[1px] border-gray-200">
           <CgProfile size={32} />
-          <span className="font-bold ml-2">{web3.wallet?.accountId}</span>
+          <span className="ml-2 font-bold">{web3.wallet?.accountId}</span>
         </div>
         <div className="px-5 pt-5 pb-[72px]">
           <p className="text-gray">
@@ -80,20 +128,20 @@ const DropdownWalletsContent = () => {
           </p>
           <button
             onClick={handleSignOutWallet}
-            className="bg-primary-color hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded"
+            className="px-4 py-2 mt-4 font-bold text-white rounded bg-primary-color hover:bg-blue-700"
           >
             Sign out
           </button>
         </div>
       </div>,
-      bodyTag,
+      bodyTag
     );
   } else {
     return createPortal(
       <div className="absolute top-[72px] right-0 z-10 w-[378px] h-[calc(100vh-72px)]  bg-white">
         <div className="flex items-center p-5 border-b-[1px] border-gray-200">
           <CgProfile size={32} />
-          <span className="font-bold ml-2">My wallet</span>
+          <span className="ml-2 font-bold">My wallet</span>
         </div>
         <div className="px-5 pt-5 pb-[72px]">
           <p className="text-gray">
@@ -102,13 +150,13 @@ const DropdownWalletsContent = () => {
           </p>
           <button
             onClick={handleSignInWallet}
-            className="bg-primary-color hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded"
+            className="px-4 py-2 mt-4 font-bold text-white rounded bg-primary-color hover:bg-blue-700"
           >
             Connect to wallet
           </button>
         </div>
       </div>,
-      bodyTag,
+      bodyTag
     );
   }
 };

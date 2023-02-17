@@ -13,4 +13,8 @@ export class Contract {
     this.contractId = contractId;
     this.walletToUse = walletToUse;
   }
+
+  get_num(): number {
+    return 5;
+  }
 }

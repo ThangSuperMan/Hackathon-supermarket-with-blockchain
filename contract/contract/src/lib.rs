@@ -1,69 +1,49 @@
-use std::collections::HashMap;
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::collections::{LazyOption, LookupMap, UnorderedMap, UnorderedSet};
-use near_sdk::json_types::{Base64VecU8, U128};
-use near_sdk::serde::{Deserialize, Serialize};
-use near_sdk::{
-    env, near_bindgen, AccountId, Balance, CryptoHash, PanicOnDefault, Promise, PromiseOrValue, log
-};
+use near_sdk::{log, env, Promise, near_bindgen, AccountId};
+// use near_sdk::collections::{LookupMap, UnorderedMap};
+use std::collections::HashMap;
 
-// Define the default message
-const DEFAULT_MESSAGE: &str = "Hello";
+// Variables
+const AMOUNT: u128 = 1_000_000_000_000_000_000_000_000; // 1 $NEAR as yoctoNEAR
+// const ACCOUNT_ID: AccountId = "thangjenny2002.testnet".parse().unwrap();
 
-// Define the contract structure
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
+#[derive(BorshSerialize, BorshDeserialize)]
 pub struct Contract {
-    message: String,
+    // Contract owner
+    pub owner_id: AccountId, 
+    pub status_updates: HashMap<AccountId, String>,
+    pub total_donations: u128
 }
 
-// Define the default, which automatically initializes the contract
-impl Default for Contract{
+impl Default for Contract {
     fn default() -> Self{
-        Self{message: "Hello World".to_string()}
+        return Self {owner_id:env::predecessor_account_id(), status_updates: todo!(), total_donations: todo!() }
     }
 }
 
-// Implement the contract structure
 #[near_bindgen]
 impl Contract {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-    pub fn get_greeting(&self) -> String {
-        return self.message.clone();
+    pub fn set_status(&mut self, status: String) {
+        self.status_updates.insert(env::predecessor_account_id(), status); 
+        // assert!(self.status_updates.len() == 1, "To many message");
     }
 
-    // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn set_greeting(&mut self, message: String) {
-        log!("Saving greeting {}", message);
-        self.message = message;
-    }
-}
-
-/*
- * The rest of this file holds the inline tests for the code above
- * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
- */
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn get_default_greeting() {
-        let contract = Contract::default();
-        // this test did not call set_greeting so should return the default "Hello" greeting
-        assert_eq!(
-            contract.get_greeting(),
-            "Hello".to_string()
-        );
+    pub fn clear(&mut self) {
+        self.status_updates.clear()
     }
 
-    #[test]
-    fn set_then_get_greeting() {
-        let mut contract = Contract::default();
-        contract.set_greeting("howdy".to_string());
-        assert_eq!(
-            contract.get_greeting(),
-            "howdy".to_string()
-        );
+    pub fn get_all_updates(self) -> HashMap<AccountId, String> {
+        self.status_updates
+    }
+
+    #[payable]
+    pub fn donate() {
+        let account_id: AccountId = "thangjenny2002.testnet".parse().unwrap();
+        // let account_id: AccountId = "thangjenny2002.testnet";
+        // Send the money from the contract to the specific account
+        Promise::new(account_id).transfer(AMOUNT);
+        log!("Deposit here: {}", near_sdk::env::attached_deposit());
+        near_sdk::env::log_str("Thanks for your jummy money!");
     }
 }

@@ -1,0 +1,10 @@
+{
+  "name": "nft-upload",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "files-from-path": "^0.2.6",
+    "nft.storage": "^7.0.0"
+  }
+}
